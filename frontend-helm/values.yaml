@@ -1,0 +1,13 @@
+deployment:
+  imageRepo: tonyduck/frontend
+  imageVersion: v1
+  replicas: 3
+service:
+  servicePort: 80
+  targetPort: 80
+  containerPort: 80
+
+   # default value {{ .Values.service.servicePort }}
+   #{{ .Values.service.targetPort }}
+
+# {{ .Values.deployment.imageRepo }}

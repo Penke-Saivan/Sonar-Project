@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: user-management-ingress
+  namespace: dev
+  annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]' #as given 443 we need to select cert arn
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:<ACC-ID>:certificate/6df34f4d-d31d-47e7-a4c5-e2a56e359c0b
+    alb.ingress.kubernetes.io/scheme: internet-facing #imp
+    alb.ingress.kubernetes.io/tags: Environment=dev,Project=user-management
+    alb.ingress.kubernetes.io/target-type: ip #target type is ip addres--> pods (in vm instances)
+    ##alb.ingress.kubernetes.io/group.name: roboshop
+spec:
+  ingressClassName: alb #**************** type of alb
+  rules:
+  - host: "app.believeinyou.fun" #if anyone hits 
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: backend-svc #route to backend-svc service
+            port:
+              number: 5000
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: frontend-svc #route to frontend-svc service
+            port:
+              number: 80              

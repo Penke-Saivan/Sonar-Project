@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: dev
+  labels:
+    app: frontend
+spec:
+  replicas: "{{ .Values.deployment.replicas }}"
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion}}"
+          ports:
+            - containerPort: "{{ .Values.service.containerPort }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+  namespace: dev
+spec:
+  selector:
+    app: frontend
+  ports:
+    - port: "{{ .Values.service.servicePort }}"
+      targetPort: "{{ .Values.service.targetPort }}"
+  type: ClusterIP
