@@ -5,7 +5,7 @@ metadata:
   namespace: dev
   annotations:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]' #as given 443 we need to select cert arn
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:<ACC-ID>:certificate/6df34f4d-d31d-47e7-a4c5-e2a56e359c0b
+    alb.ingress.kubernetes.io/certificate-arn: "{{ .Values.annotations.arn }}"
     alb.ingress.kubernetes.io/scheme: internet-facing #imp
     alb.ingress.kubernetes.io/tags: Environment=dev,Project=user-management
     alb.ingress.kubernetes.io/target-type: ip #target type is ip addres--> pods (in vm instances)
@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: alb #**************** type of alb
   rules:
-  - host: "app.believeinyou.fun" #if anyone hits 
+  - host: "{{ .Values.rules.host }}.believeinyou.fun" #if anyone hits 
     http:
       paths:
       - pathType: Prefix

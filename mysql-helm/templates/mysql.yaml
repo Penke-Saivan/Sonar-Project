@@ -58,8 +58,8 @@ spec:
   selector:
     app: mysql
   ports:
-    - port: "{{ .Values.service.servicePort }}"
-      targetPort: "{{ .Values.service.targetPort }}"
+    - port: {{ .Values.service.servicePort }}
+      targetPort: {{ .Values.service.targetPort }}
 
 ---
 apiVersion: apps/v1
@@ -71,7 +71,7 @@ metadata:
     app: mysql
 spec:
   serviceName: mysql
-  replicas: "{{ .Values.deployment.replicas }}"
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: mysql
@@ -84,7 +84,7 @@ spec:
         - name: mysql
           image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion}}"
           ports:
-            - containerPort: "{{ .Values.service.containerPort }}"
+            - containerPort: {{ .Values.service.containerPort }}
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:

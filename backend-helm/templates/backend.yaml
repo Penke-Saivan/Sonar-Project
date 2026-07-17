@@ -7,7 +7,7 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: "{{ .Values.deployment.replicas }}"
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: backend
@@ -20,7 +20,7 @@ spec:
         - name: backend
           image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion}}"
           ports:
-            - containerPort: "{{ .Values.service.containerPort }}"
+            - containerPort: {{ .Values.service.containerPort }}
           env:
             - name: DB_HOST
               value: mysql
@@ -46,6 +46,6 @@ spec:
   selector:
     app: backend
   ports:
-    - port: "{{ .Values.service.servicePort }}"
-      targetPort: "{{ .Values.service.targetPort }}"
+    - port: {{ .Values.service.servicePort }}
+      targetPort: {{ .Values.service.targetPort }}
   type: ClusterIP

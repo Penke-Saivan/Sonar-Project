@@ -1,6 +1,6 @@
 deployment:
   imageRepo: tonyduck/backend
-  imageVersion: v1
+  imageVersion: v2
   replicas: 3
 service:
   servicePort: 5000
