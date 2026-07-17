@@ -1,7 +1,7 @@
 deployment:
-  imageRepo: tonyduck/frontend
-  imageVersion: v3
-  replicas: 3
+  imageRepo: tonyduck/frontend-deploy
+  imageVersion: v1
+  replicas: 1
 service:
   servicePort: 80
   targetPort: 80
