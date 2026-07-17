@@ -19,6 +19,7 @@ spec:
       containers:
         - name: backend
           image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion}}"
+          imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.service.containerPort }}
           env:
